@@ -458,16 +458,16 @@ SocialLayer::transformProxemicFootprint(
   std::vector<geometry_msgs::msg::Point> & transformed_proxemic,
   float alpha_mod)
 {
-  tf2::Transform tf_ = tf;
+  // tf2::Transform tf_ = tf;
   tf2::Quaternion q_orig, q_rot, q_new;
   q_rot.setRPY(alpha_mod, 0, 0);
-  q_new = q_rot * tf_.getRotation();  // Calculate the new orientation
+  q_new = q_rot * tf.getRotation();  // Calculate the new orientation
   q_new.normalize();
-  tf_.setRotation(q_new);
+  tf.setRotation(q_new);
 
   for (auto p : input_points) {
     tf2::Vector3 p_obj(p.x, p.y, 0.0);
-    auto transform_p = transformPoint(p_obj, tf_);
+    auto transform_p = transformPoint(p_obj, tf);
     geometry_msgs::msg::Point out_p;
     out_p.x = transform_p.x();
     out_p.y = transform_p.y();
